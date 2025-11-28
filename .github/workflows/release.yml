@@ -58,7 +58,7 @@ jobs:
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       - name: Publish package
-        run: pnpm publish --access public
+        run: pnpm publish --access public --no-git-checks
 
       - name: Create Release
         id: create_release
