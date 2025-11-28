@@ -1,0 +1,54 @@
+{
+  "name": "@zhyporium/rest",
+  "version": "0.0.0",
+  "description": "A type-safe REST client for TypeScript that provides full type checking for your API routes and responses.",
+  "keywords": [
+    "rest",
+    "client",
+    "typescript",
+    "type-safe",
+    "api",
+    "http",
+    "fetch",
+    "routes",
+    "types"
+  ],
+  "type": "module",
+  "license": "MIT",
+  "homepage": "https://github.com/zhyporium/rest#readme",
+  "bugs": {
+    "url": "https://github.com/zhyporium/rest/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhyporium/rest.git"
+  },
+  "author": "AOME <enum314@gmail.com>",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm run build",
+    "v:patch": "npm version patch -m \"chore(release): %s\" --sign-git-tag",
+    "v:minor": "npm version minor -m \"chore(release): %s\" --sign-git-tag",
+    "v:major": "npm version major -m \"chore(release): %s\" --sign-git-tag"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "bumpp": "^10.3.1",
+    "tsdown": "^0.16.4",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.9"
+  }
+}

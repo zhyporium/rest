@@ -1,0 +1,54 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request_target:
+    branches: [main]
+
+jobs:
+  pre_ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get commit message
+        id: get_commit_message
+        run: |
+          # Properly escape multiline commit messages for GitHub environment variables
+          commit_msg=$(git log -1 --pretty=%B | tr -d '\r' | tr '\n' ' ')
+          echo "COMMIT_MSG=$commit_msg" >> $GITHUB_OUTPUT
+          echo "Commit message: $commit_msg"
+
+    outputs:
+      commit_message: ${{ steps.get_commit_message.outputs.COMMIT_MSG }}
+
+  test:
+    needs: pre_ci
+    runs-on: ubuntu-latest
+    if: "!contains(needs.pre_ci.outputs.commit_message, 'chore(release): ')"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - uses: pnpm/action-setup@v4
+        id: pnpm-install
+
+      - id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - run: pnpm install
+
+      - run: pnpm test
