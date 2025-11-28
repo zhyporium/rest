@@ -5,12 +5,14 @@ on:
     tags:
       - "v*.*.*"
 
+permissions:
+  id-token: write # Required for OIDC
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
     environment: Release
-    permissions:
-      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,6 +24,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
+          registry-url: "https://registry.npmjs.org"
 
       - name: Setup PNPM
         uses: pnpm/action-setup@v4
@@ -55,9 +58,7 @@ jobs:
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
 
       - name: Publish package
-        run: pnpm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm publish --access public
 
       - name: Create Release
         id: create_release
