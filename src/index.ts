@@ -17,13 +17,13 @@ interface RoutesLike {
 type RESTResponse<ResponseType> =
   | {
       status: "success";
-      response: ResponseType;
-      fetchResponse: Response;
+      data: ResponseType;
+      response: Response;
     }
   | {
       status: "error";
       error: Error;
-      fetchResponse: Response | null;
+      response: Response | null;
     };
 
 export class REST<Routes extends RoutesLike> {
@@ -84,28 +84,28 @@ export class REST<Routes extends RoutesLike> {
         return {
           status: "error",
           error: new Error(response.statusText),
-          fetchResponse: response,
+          response,
         };
       }
 
       if (response.headers.get("Content-Type")?.includes("application/json")) {
         return {
           status: "success",
-          response: (await response.json()) as Routes["GET"][T]["response"],
-          fetchResponse: response,
+          data: (await response.json()) as Routes["GET"][T]["response"],
+          response,
         };
       }
 
       return {
         status: "success",
-        response: (await response.text()) as Routes["GET"][T]["response"],
-        fetchResponse: response,
+        data: (await response.text()) as Routes["GET"][T]["response"],
+        response,
       };
     } catch (error) {
       return {
         status: "error",
         error: error as Error,
-        fetchResponse: null,
+        response: null,
       };
     }
   }
@@ -132,28 +132,28 @@ export class REST<Routes extends RoutesLike> {
         return {
           status: "error",
           error: new Error(response.statusText),
-          fetchResponse: response,
+          response,
         };
       }
 
       if (response.headers.get("Content-Type")?.includes("application/json")) {
         return {
           status: "success",
-          response: (await response.json()) as Routes["POST"][T]["response"],
-          fetchResponse: response,
+          data: (await response.json()) as Routes["POST"][T]["response"],
+          response,
         };
       }
 
       return {
         status: "success",
-        response: (await response.text()) as Routes["POST"][T]["response"],
-        fetchResponse: response,
+        data: (await response.text()) as Routes["POST"][T]["response"],
+        response,
       };
     } catch (error) {
       return {
         status: "error",
         error: error as Error,
-        fetchResponse: null,
+        response: null,
       };
     }
   }
@@ -180,28 +180,28 @@ export class REST<Routes extends RoutesLike> {
         return {
           status: "error",
           error: new Error(response.statusText),
-          fetchResponse: response,
+          response,
         };
       }
 
       if (response.headers.get("Content-Type")?.includes("application/json")) {
         return {
           status: "success",
-          response: (await response.json()) as Routes["PATCH"][T]["response"],
-          fetchResponse: response,
+          data: (await response.json()) as Routes["PATCH"][T]["response"],
+          response,
         };
       }
 
       return {
         status: "success",
-        response: (await response.text()) as Routes["PATCH"][T]["response"],
-        fetchResponse: response,
+        data: (await response.text()) as Routes["PATCH"][T]["response"],
+        response,
       };
     } catch (error) {
       return {
         status: "error",
         error: error as Error,
-        fetchResponse: null,
+        response: null,
       };
     }
   }
@@ -228,28 +228,28 @@ export class REST<Routes extends RoutesLike> {
         return {
           status: "error",
           error: new Error(response.statusText),
-          fetchResponse: response,
+          response,
         };
       }
 
       if (response.headers.get("Content-Type")?.includes("application/json")) {
         return {
           status: "success",
-          response: (await response.json()) as Routes["PUT"][T]["response"],
-          fetchResponse: response,
+          data: (await response.json()) as Routes["PUT"][T]["response"],
+          response,
         };
       }
 
       return {
         status: "success",
-        response: (await response.text()) as Routes["PUT"][T]["response"],
-        fetchResponse: response,
+        data: (await response.text()) as Routes["PUT"][T]["response"],
+        response,
       };
     } catch (error) {
       return {
         status: "error",
         error: error as Error,
-        fetchResponse: null,
+        response: null,
       };
     }
   }
@@ -276,28 +276,28 @@ export class REST<Routes extends RoutesLike> {
         return {
           status: "error",
           error: new Error(response.statusText),
-          fetchResponse: response,
+          response,
         };
       }
 
       if (response.headers.get("Content-Type")?.includes("application/json")) {
         return {
           status: "success",
-          response: (await response.json()) as Routes["DELETE"][T]["response"],
-          fetchResponse: response,
+          data: (await response.json()) as Routes["DELETE"][T]["response"],
+          response,
         };
       }
 
       return {
         status: "success",
-        response: (await response.text()) as Routes["DELETE"][T]["response"],
-        fetchResponse: response,
+        data: (await response.text()) as Routes["DELETE"][T]["response"],
+        response,
       };
     } catch (error) {
       return {
         status: "error",
         error: error as Error,
-        fetchResponse: null,
+        response: null,
       };
     }
   }

@@ -92,14 +92,14 @@ describe("REST Client with Poke API", () => {
       expect(result.status).toBe("success");
 
       if (result.status === "success") {
-        expect(result.fetchResponse).toBeDefined();
-        expect(result.fetchResponse.ok).toBe(true);
         expect(result.response).toBeDefined();
-        expect(result.response.name).toBe("pikachu");
-        expect(result.response.id).toBe(25);
-        expect(result.response.height).toBeGreaterThan(0);
-        expect(result.response.weight).toBeGreaterThan(0);
-        expect(Array.isArray(result.response.types)).toBe(true);
+        expect(result.response.ok).toBe(true);
+        expect(result.data).toBeDefined();
+        expect(result.data.name).toBe("pikachu");
+        expect(result.data.id).toBe(25);
+        expect(result.data.height).toBeGreaterThan(0);
+        expect(result.data.weight).toBeGreaterThan(0);
+        expect(Array.isArray(result.data.types)).toBe(true);
       }
     });
 
@@ -113,9 +113,9 @@ describe("REST Client with Poke API", () => {
       expect(result.status).toBe("success");
 
       if (result.status === "success") {
-        expect(result.response).toBeDefined();
-        expect(result.response.name).toBe("bulbasaur");
-        expect(result.response.id).toBe(1);
+        expect(result.data).toBeDefined();
+        expect(result.data.name).toBe("bulbasaur");
+        expect(result.data.id).toBe(1);
       }
     });
 
@@ -130,13 +130,13 @@ describe("REST Client with Poke API", () => {
       expect(result.status).toBe("success");
 
       if (result.status === "success") {
-        expect(result.fetchResponse).toBeDefined();
         expect(result.response).toBeDefined();
-        expect(result.response.count).toBeGreaterThan(0);
-        expect(Array.isArray(result.response.results)).toBe(true);
-        expect(result.response.results.length).toBe(5);
-        expect(result.response.results[0]).toHaveProperty("name");
-        expect(result.response.results[0]).toHaveProperty("url");
+        expect(result.data).toBeDefined();
+        expect(result.data.count).toBeGreaterThan(0);
+        expect(Array.isArray(result.data.results)).toBe(true);
+        expect(result.data.results.length).toBe(5);
+        expect(result.data.results[0]).toHaveProperty("name");
+        expect(result.data.results[0]).toHaveProperty("url");
       }
     });
 
@@ -146,9 +146,9 @@ describe("REST Client with Poke API", () => {
       expect(result.status).toBe("success");
 
       if (result.status === "success") {
-        expect(result.response).toBeDefined();
-        expect(result.response.count).toBeGreaterThan(0);
-        expect(Array.isArray(result.response.results)).toBe(true);
+        expect(result.data).toBeDefined();
+        expect(result.data.count).toBeGreaterThan(0);
+        expect(Array.isArray(result.data.results)).toBe(true);
       }
     });
 
@@ -162,10 +162,10 @@ describe("REST Client with Poke API", () => {
       expect(result.status).toBe("success");
 
       if (result.status === "success") {
-        expect(result.response).toBeDefined();
-        expect(result.response.name).toBe("electric");
-        expect(result.response.id).toBeGreaterThan(0);
-        expect(Array.isArray(result.response.pokemon)).toBe(true);
+        expect(result.data).toBeDefined();
+        expect(result.data.name).toBe("electric");
+        expect(result.data.id).toBeGreaterThan(0);
+        expect(Array.isArray(result.data.pokemon)).toBe(true);
       }
     });
 
@@ -181,9 +181,9 @@ describe("REST Client with Poke API", () => {
       if (result.status === "error") {
         expect(result.error).toBeDefined();
         expect(result.error).toBeInstanceOf(Error);
-        expect(result.fetchResponse).toBeDefined();
-        expect(result.fetchResponse?.ok).toBe(false);
-        expect(result.fetchResponse?.status).toBe(404);
+        expect(result.response).toBeDefined();
+        expect(result.response?.ok).toBe(false);
+        expect(result.response?.status).toBe(404);
       }
     });
 
@@ -197,8 +197,8 @@ describe("REST Client with Poke API", () => {
       expect(result.status).toBe("success");
 
       if (result.status === "success") {
-        expect(result.response).toBeDefined();
-        expect(result.response.name).toBe("charizard");
+        expect(result.data).toBeDefined();
+        expect(result.data.name).toBe("charizard");
       }
     });
   });
@@ -222,8 +222,8 @@ describe("REST Client with Poke API", () => {
       expect(result.status).toBe("success");
 
       if (result.status === "success") {
-        expect(result.response).toBeDefined();
-        expect(result.response.name).toBe("ditto");
+        expect(result.data).toBeDefined();
+        expect(result.data.name).toBe("ditto");
       }
     });
 
@@ -261,9 +261,9 @@ describe("REST Client with Poke API", () => {
       expect(result.status).toBe("success");
 
       if (result.status === "success") {
-        expect(result.response).toBeDefined();
+        expect(result.data).toBeDefined();
         // Verify that offset is working (should return different results)
-        expect(result.response.results.length).toBe(10);
+        expect(result.data.results.length).toBe(10);
       }
     });
 
@@ -274,7 +274,7 @@ describe("REST Client with Poke API", () => {
 
       expect(result.status).toBe("success");
       if (result.status === "success") {
-        expect(result.response).toBeDefined();
+        expect(result.data).toBeDefined();
       }
     });
   });
@@ -290,10 +290,10 @@ describe("REST Client with Poke API", () => {
       expect(result.status).toBe("success");
 
       if (result.status === "success") {
-        expect(result.response).toBeDefined();
-        expect(typeof result.response.id).toBe("number");
-        expect(typeof result.response.name).toBe("string");
-        expect(typeof result.response.height).toBe("number");
+        expect(result.data).toBeDefined();
+        expect(typeof result.data.id).toBe("number");
+        expect(typeof result.data.name).toBe("string");
+        expect(typeof result.data.height).toBe("number");
       }
     });
 
@@ -307,10 +307,10 @@ describe("REST Client with Poke API", () => {
       expect(result.status).toBe("success");
 
       if (result.status === "success") {
+        expect(result.data).toBeDefined();
         expect(result.response).toBeDefined();
-        expect(result.fetchResponse).toBeDefined();
-        expect(result.fetchResponse.status).toBe(200);
-        expect(result.fetchResponse.headers).toBeDefined();
+        expect(result.response.status).toBe(200);
+        expect(result.response.headers).toBeDefined();
       }
     });
   });
@@ -333,7 +333,7 @@ describe("REST Client with Poke API", () => {
       if (result.status === "error") {
         expect(result.error).toBeDefined();
         expect(result.error).toBeInstanceOf(Error);
-        expect(result.fetchResponse).toBeNull();
+        expect(result.response).toBeNull();
       }
     });
 
@@ -349,8 +349,8 @@ describe("REST Client with Poke API", () => {
       if (result.status === "error") {
         expect(result.error).toBeDefined();
         expect(result.error).toBeInstanceOf(Error);
-        expect(result.fetchResponse).toBeDefined();
-        expect(result.fetchResponse?.status).toBe(404);
+        expect(result.response).toBeDefined();
+        expect(result.response?.status).toBe(404);
       }
     });
   });
