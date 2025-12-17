@@ -1,6 +1,6 @@
 {
   "name": "@zhyporium/rest",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A type-safe REST client for TypeScript that provides full type checking for your API routes and responses.",
   "keywords": [
     "rest",
