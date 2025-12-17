@@ -68,8 +68,8 @@ const result = await client.get("/users/:id", {
 });
 
 if (result.status === "success") {
-  console.log(result.response.name); // TypeScript knows this is a string
-  console.log(result.fetchResponse); // Access the raw Response object
+  console.log(result.data.name); // TypeScript knows this is a string
+  console.log(result.response); // Access the raw Response object
 } else {
   console.error(result.error); // Handle errors
 }
@@ -163,13 +163,13 @@ new REST<Routes>(baseUrl: string, baseHeaders: Record<string, string>)
 type RESTResponse<ResponseType> =
   | {
       status: "success";
-      response: ResponseType;
-      fetchResponse: Response;
+      data: ResponseType;
+      response: Response;
     }
   | {
       status: "error";
       error: Error;
-      fetchResponse: Response | null;
+      response: Response | null;
     };
 ```
 
